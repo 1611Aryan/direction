@@ -3,7 +3,9 @@ import React, { useState } from "react"
 import { checkUserEndpoint } from "../../API_Endpoints"
 import "./index.scss"
 
-const Main = () => {
+const Main: React.FC<{
+  setAccess: React.Dispatch<React.SetStateAction<boolean>>
+}> = ({ setAccess }) => {
   const [input, setInput] = useState({
     name: "",
     email: "",
@@ -17,14 +19,12 @@ const Main = () => {
     e.preventDefault()
 
     try {
-      const res = await axios[checkUserEndpoint.method](
-        checkUserEndpoint.url,
-        input,
-        {
-          withCredentials: true,
-        }
-      )
-      console.log(res)
+      const res = await axios[checkUserEndpoint.method]<{
+        access: boolean
+      }>(checkUserEndpoint.url, input, {
+        withCredentials: true,
+      })
+      setAccess(res.data.access)
     } catch (err) {
       if (err.response) console.log(err.response.data)
       else console.log(err)

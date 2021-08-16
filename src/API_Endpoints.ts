@@ -10,3 +10,8 @@ export const checkUserEndpoint: Endpoint = {
   url: `${baseUrl}/check`,
   method: "post",
 }
+
+export const createUserEndpoint: Endpoint = {
+  url: `${baseUrl}/user`,
+  method: "post",
+}
