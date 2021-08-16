@@ -4,7 +4,9 @@ type Endpoint = {
 }
 
 const baseUrl =
-  process.env.NODE_ENV === "production" ? "" : "http://localhost:5000"
+  process.env.NODE_ENV === "production"
+    ? "https://iiche-form.herokuapp.com"
+    : "http://localhost:5000"
 
 export const checkUserEndpoint: Endpoint = {
   url: `${baseUrl}/check`,
