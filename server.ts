@@ -19,10 +19,10 @@ app.use(morgan("dev"))
 app.use(helmet())
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "https://iiche-recruitments.netlify.app/",
-    ],
+    origin:
+      process.env.development === "production"
+        ? "https://iiche-recruitments.netlify.app/"
+        : "http://localhost:3000",
     credentials: true,
   })
 )
