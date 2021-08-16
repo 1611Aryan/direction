@@ -1,17 +1,14 @@
-import "./Styles/app.scss"
-import logo from "./Media/logoBlack.png"
-import chem from "./Media/chem.png"
+import Header from "./Components/Header"
+import Main from "./Components/Main"
+import illustration from "./Media/Illustration.png"
 
 const App = () => {
   return (
-    <div className="App">
-      <img src={chem} alt="illustration" className="illustration" />
+    <div>
+      <Header />
+      <img className="illustration" src={illustration} alt="" />
       <div className="overlay"></div>
-      <header>
-        <img src={logo} alt="logo" />
-      </header>
-
-      <div className="formContainer"></div>
+      <Main />
     </div>
   )
 }
