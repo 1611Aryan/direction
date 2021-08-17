@@ -1,5 +1,5 @@
 header {
-  padding: 0 2em;
+  padding: 0 clamp(1em, 3vw, 2em);
   position: relative;
   z-index: 2;
 

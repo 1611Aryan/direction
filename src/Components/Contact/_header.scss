@@ -17,32 +17,15 @@ header {
   }
 
   a {
+    height: 100%;
+    display: flex;
+    align-items: center;
     text-decoration: none;
-  }
-
-  button {
-    padding: clamp(0.25em, 3vw, 0.45em) clamp(0.5em, 3vw, 1em);
-    font-family: var(--fontHeading);
-    font-size: clamp(0.9em, 3vw, 1.2em);
-    background: #e55b77;
-    color: #fff;
-    font-weight: 500;
-    border: 0;
-    border-radius: 10px;
-    cursor: pointer;
-
-    &:focus {
-      outline: 0;
-    }
   }
 
   @media only screen and (max-width: 500px) {
     img {
       height: 60% !important;
-    }
-
-    button {
-      border-radius: 5px;
     }
   }
 }

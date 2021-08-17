@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-const Page2: React.FC<{
+const Page3: React.FC<{
   pageContainerRef: React.RefObject<HTMLDivElement>
   input: {
     year: string
@@ -36,36 +36,32 @@ const Page2: React.FC<{
   }
 
   const previous = () => {
-    if (pageContainerRef.current)
-      pageContainerRef.current.style.transform = "translateX(0%)"
-  }
-  const next = () => {
-    if (pageContainerRef.current)
-      pageContainerRef.current.style.transform = "translateX(-66.6%)"
+    if (pageContainerRef.current) {
+      pageContainerRef.current.style.transform = "translateX(-33%)"
+    }
   }
 
   return (
     <div className="page">
       <div className="textarea">
-        <label htmlFor="experience">
-          Any Previous Experience you would like to share?
-        </label>
+        <label htmlFor="song">Your favourite song that motivates you</label>
         <textarea
           className="experience"
-          name="experience"
+          name="song"
           onChange={changeHandler}
-          value={input.experience}
+          value={input.song}
         ></textarea>
       </div>
       <div className=" textarea">
-        <label htmlFor="aptitude">
-          If you could send one message to everyone’s phone, what would that be?
+        <label htmlFor="event">
+          A change that you would suggest in previous events or an idea for a
+          new event?
         </label>
         <textarea
           className="aptitude"
-          name="aptitude"
+          name="event"
           onChange={changeHandler}
-          value={input.aptitude}
+          value={input.event}
         ></textarea>
       </div>
 
@@ -73,16 +69,12 @@ const Page2: React.FC<{
         <button type="button" onClick={previous}>
           Previous
         </button>
-        <button
-          type="button"
-          className={filled ? "" : "disable"}
-          onClick={next}
-        >
-          Next
+        <button type="submit" className={filled ? "" : "disable"}>
+          Submit
         </button>
       </div>
     </div>
   )
 }
 
-export default Page2
+export default Page3

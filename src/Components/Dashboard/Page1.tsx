@@ -9,6 +9,8 @@ const Page1: React.FC<{
     department: string[]
     experience: string
     aptitude: string
+    song: string
+    event: string
   }
   setInput: React.Dispatch<
     React.SetStateAction<{
@@ -17,6 +19,8 @@ const Page1: React.FC<{
       department: string[]
       experience: string
       aptitude: string
+      song: string
+      event: string
     }>
   >
 }> = ({ pageContainerRef, input, setInput }) => {
@@ -74,7 +78,7 @@ const Page1: React.FC<{
 
   const next = () => {
     if (pageContainerRef.current) {
-      pageContainerRef.current.style.transform = "translateX(-50%)"
+      pageContainerRef.current.style.transform = "translateX(-33.3%)"
     }
   }
 

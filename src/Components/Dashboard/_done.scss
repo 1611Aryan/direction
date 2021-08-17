@@ -7,6 +7,8 @@
   display: grid;
   place-items: center;
 
+  padding: 0 clamp(1em, 3vw, 2em);
+
   .content {
     width: 60%;
     height: 85%;
@@ -33,11 +35,24 @@
     p {
       text-align: center;
       width: 80%;
-      font-size: 2em;
+      font-size: clamp(1.5em, 3vw, 2em);
 
       span {
-        font-size: 0.9em;
+        font-size: clamp(0.7em, 2vw, 0.9em);
         font-weight: 300;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    .content {
+      width: 100%;
+      padding: 0 0.5em;
+      p {
+        width: 100%;
+      }
+      img {
+        width: 50%;
       }
     }
   }

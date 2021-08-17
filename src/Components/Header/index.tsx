@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import logo from "./../../Media/logo.png"
 import "./index.scss"
 
@@ -6,7 +7,9 @@ const Header: React.FC = () => {
     <header>
       <img src={logo} alt="" />
       <nav>
-        <button>Contact Us</button>
+        <Link to="/contact">
+          <button>Contact Us</button>
+        </Link>
       </nav>
     </header>
   )

@@ -1,9 +1,10 @@
 import axios from "axios"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useRef } from "react"
 import { createUserEndpoint } from "../../API_Endpoints"
 import Page1 from "./Page1"
 import Page2 from "./Page2"
+import Page3 from "./Page3"
 
 const Form: React.FC<{
   setDone: React.Dispatch<
@@ -23,16 +24,33 @@ const Form: React.FC<{
     department: string[]
     experience: string
     aptitude: string
+    song: string
+    event: string
   }>({
     year: "",
     branch: "",
     department: [""],
     experience: "",
     aptitude: "",
+    song: "",
+    event: "",
   })
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    if (
+      !input.aptitude ||
+      !input.branch ||
+      !input.department ||
+      !input.department[0] ||
+      !input.event ||
+      !input.experience ||
+      !input.song ||
+      !input.year
+    )
+      return
+
     setLoading(true)
     try {
       await axios[createUserEndpoint.method](createUserEndpoint.url, input, {
@@ -82,6 +100,11 @@ const Form: React.FC<{
             setInput={setInput}
           />
           <Page2
+            pageContainerRef={pageContainerRef}
+            input={input}
+            setInput={setInput}
+          />
+          <Page3
             pageContainerRef={pageContainerRef}
             input={input}
             setInput={setInput}

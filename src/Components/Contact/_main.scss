@@ -1,0 +1,124 @@
+.contact {
+  position: relative;
+  z-index: 2;
+  width: 100vw;
+  height: calc(100vh - var(--navHeight));
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .content {
+    width: 80vw;
+    height: 85%;
+    background: rgba(99, 130, 241, 0.75);
+
+    border-radius: 10px;
+
+    font-family: var(--fontContent);
+    color: #fff;
+
+    padding: clamp(1em, 3vw, 3em);
+
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+
+    h1 {
+      font-size: clamp(2em, 3vw, 4em);
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .numbers {
+      width: 35%;
+
+      p {
+        width: 100%;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+
+        font-family: var(--fontContent);
+        font-weight: 400;
+        font-size: clamp(1.25em, 3vw, 2em);
+        margin: 0.5em;
+
+        .number {
+          font-size: 0.9em;
+          font-weight: 300;
+        }
+      }
+    }
+
+    .icons {
+      font-size: clamp(1.25em, 3vw, 2em);
+      a {
+        color: #fff;
+      }
+      > * {
+        cursor: pointer;
+
+        &:hover {
+          transition: color ease-in-out 100ms;
+          color: #f1a363;
+        }
+      }
+      > * + * {
+        margin-left: 0.75em;
+      }
+    }
+
+    .contactImg {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+
+      width: 50%;
+
+      img {
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    .content {
+      width: 100%;
+      height: 70%;
+
+      .numbers {
+        width: 80%;
+        position: relative;
+        z-index: 2;
+      }
+
+      h1 {
+        position: relative;
+        z-index: 2;
+      }
+
+      .icons {
+        position: relative;
+        z-index: 2;
+      }
+
+      .contactImg {
+        width: 90%;
+
+        img {
+          width: 100%;
+          object-fit: cover;
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+}
