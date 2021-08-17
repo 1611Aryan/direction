@@ -1,0 +1,53 @@
+.loader {
+  position: fixed;
+  top: 0vh;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px);
+
+  display: grid;
+  place-items: center;
+
+  .load {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 10px solid transparent;
+    border-top: 10px solid #c41e3a;
+    border-bottom: 10px solid #c41e3a;
+    animation: rotateAntiCW 1.8s linear infinite;
+  }
+
+  .load::after {
+    content: "";
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 10px solid transparent;
+    border-left: 10px solid #c9cc3f;
+    border-right: 10px solid #c9cc3f;
+    animation: rotate 1s linear infinite;
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(-360deg);
+    }
+  }
+
+  @keyframes rotateAntiCW {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}

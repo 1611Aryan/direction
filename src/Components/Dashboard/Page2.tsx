@@ -10,6 +10,7 @@ const Page2: React.FC<{
     aptitude: string
     song: string
     event: string
+    phone: string
   }
   setInput: React.Dispatch<
     React.SetStateAction<{
@@ -20,6 +21,7 @@ const Page2: React.FC<{
       aptitude: string
       song: string
       event: string
+      phone: string
     }>
   >
 }> = ({ pageContainerRef, input, setInput }) => {

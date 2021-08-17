@@ -26,6 +26,7 @@ const Form: React.FC<{
     aptitude: string
     song: string
     event: string
+    phone: string
   }>({
     year: "",
     branch: "",
@@ -34,6 +35,7 @@ const Form: React.FC<{
     aptitude: "",
     song: "",
     event: "",
+    phone: "",
   })
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -47,7 +49,8 @@ const Form: React.FC<{
       !input.event ||
       !input.experience ||
       !input.song ||
-      !input.year
+      !input.year ||
+      !input.phone
     )
       return
 
@@ -64,7 +67,7 @@ const Form: React.FC<{
           success: true,
           message: "",
         })
-      }, 500)
+      }, 200)
     } catch (err) {
       if (err.response) console.log(err.response.data)
       else console.log(err)
@@ -77,7 +80,7 @@ const Form: React.FC<{
             success: false,
             message: err.response.data.message,
           })
-        }, 500)
+        }, 200)
       else
         setTimeout(() => {
           setLoading(false)
@@ -86,7 +89,7 @@ const Form: React.FC<{
             success: false,
             message: "We encountered and Error, Try again later",
           })
-        }, 500)
+        }, 200)
     }
   }
 

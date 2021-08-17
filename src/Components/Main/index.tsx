@@ -10,6 +10,8 @@ const Main: React.FC<{
     name: "",
     email: "",
   })
+  const [loading, setLoading] = useState(false)
+  const [err, setErr] = useState("")
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(input => ({ ...input, [e.target.name]: e.target.value }))
@@ -17,17 +19,24 @@ const Main: React.FC<{
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
+    setLoading(true)
     try {
       const res = await axios[checkUserEndpoint.method]<{
         access: boolean
       }>(checkUserEndpoint.url, input, {
         withCredentials: true,
       })
+      setLoading(false)
       setAccess(res.data.access)
     } catch (err) {
-      if (err.response) console.log(err.response.data)
-      else console.log(err)
+      if (err.response) {
+        console.log(err.response.data.message)
+        setErr(err.response.data.message)
+      } else {
+        console.log(err)
+        setErr("Please Try Again Later")
+      }
+      setLoading(false)
     }
   }
 
@@ -40,6 +49,8 @@ const Main: React.FC<{
       </p>
 
       <form onSubmit={submitHandler}>
+        <div className="err">{err}</div>
+
         <div className="inputContainer">
           <label htmlFor="name">Your Name</label>
           <input
@@ -63,6 +74,11 @@ const Main: React.FC<{
         </div>
         <button>Continue</button>
       </form>
+      {loading && (
+        <div className="loader">
+          <div className="load"></div>
+        </div>
+      )}
     </main>
   )
 }

@@ -11,6 +11,7 @@ const Page1: React.FC<{
     aptitude: string
     song: string
     event: string
+    phone: string
   }
   setInput: React.Dispatch<
     React.SetStateAction<{
@@ -21,6 +22,7 @@ const Page1: React.FC<{
       aptitude: string
       song: string
       event: string
+      phone: string
     }>
   >
 }> = ({ pageContainerRef, input, setInput }) => {
@@ -76,6 +78,17 @@ const Page1: React.FC<{
     })
   }
 
+  const checkBoxHandler = (type: string) => {
+    if (type === "technical" && technicalInput.current)
+      technicalInput.current.checked = !technicalInput.current.checked
+    if (type === "content" && contentInput.current)
+      contentInput.current.checked = !contentInput.current.checked
+    if (type === "design" && designInput.current)
+      designInput.current.checked = !designInput.current.checked
+    if (type === "marketing" && marketingInput.current)
+      marketingInput.current.checked = !marketingInput.current.checked
+  }
+
   const next = () => {
     if (pageContainerRef.current) {
       pageContainerRef.current.style.transform = "translateX(-33.3%)"
@@ -105,6 +118,17 @@ const Page1: React.FC<{
           required
         />
       </div>
+      <div className="inputContainer">
+        <label htmlFor="phone">Phone</label>
+        <input
+          type="text"
+          value={input.phone}
+          name="phone"
+          onChange={changeHandler}
+          autoFocus
+          required
+        />
+      </div>
       <div className="checkbox">
         <label htmlFor="department" className="label__header">
           Department of Choice
@@ -118,7 +142,12 @@ const Page1: React.FC<{
             onChange={changeHandler}
             ref={technicalInput}
           />
-          <label htmlFor="technical">Technical</label>
+          <label
+            htmlFor="technical"
+            onClick={() => checkBoxHandler("technical")}
+          >
+            Technical
+          </label>
         </div>
 
         <div className="option">
@@ -129,7 +158,9 @@ const Page1: React.FC<{
             onChange={changeHandler}
             ref={contentInput}
           />
-          <label htmlFor="content">Content and Documentation</label>
+          <label htmlFor="content" onClick={() => checkBoxHandler("content")}>
+            Content and Documentation
+          </label>
         </div>
 
         <div className="option">
@@ -140,7 +171,12 @@ const Page1: React.FC<{
             onChange={changeHandler}
             ref={marketingInput}
           />
-          <label htmlFor="marketing">PR and Marketing</label>
+          <label
+            htmlFor="marketing"
+            onClick={() => checkBoxHandler("marketing")}
+          >
+            PR and Marketing
+          </label>
         </div>
 
         <div className="option">
@@ -151,7 +187,9 @@ const Page1: React.FC<{
             onChange={changeHandler}
             ref={designInput}
           />
-          <label htmlFor="design">Engagement and Design</label>
+          <label htmlFor="design" onClick={() => checkBoxHandler("design")}>
+            Engagement and Design
+          </label>
         </div>
       </div>
       <div className="btnContainer">
