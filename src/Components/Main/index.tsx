@@ -34,6 +34,7 @@ const Main: React.FC<{
   return (
     <main>
       <p>
+        <span className="small">IIChE TIET's</span>
         <span>RECRUITMENT</span>
         <span className="grow">FORM</span>
       </p>

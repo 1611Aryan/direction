@@ -9,8 +9,8 @@
   align-items: center;
 
   .content {
-    width: 80vw;
-    height: 85%;
+    width: 60vw;
+    height: 75%;
     background: rgba(99, 130, 241, 0.75);
 
     border-radius: 10px;
@@ -29,13 +29,13 @@
     flex-direction: column;
 
     h1 {
-      font-size: clamp(2em, 3vw, 4em);
+      font-size: clamp(2.5em, 3vw, 4em);
       line-height: 1;
       font-weight: 900;
     }
 
     .numbers {
-      width: 35%;
+      width: 45%;
 
       p {
         width: 100%;
@@ -47,7 +47,7 @@
 
         font-family: var(--fontContent);
         font-weight: 400;
-        font-size: clamp(1.25em, 3vw, 2em);
+        font-size: clamp(1.35em, 3vw, 2em);
         margin: 0.5em;
 
         .number {
@@ -58,7 +58,7 @@
     }
 
     .icons {
-      font-size: clamp(1.25em, 3vw, 2em);
+      font-size: clamp(1.5em, 3vw, 2em);
       a {
         color: #fff;
       }
@@ -67,7 +67,7 @@
 
         &:hover {
           transition: color ease-in-out 100ms;
-          color: #f1a363;
+          color: #f1af63;
         }
       }
       > * + * {
@@ -80,7 +80,7 @@
       bottom: 0;
       right: 0;
 
-      width: 50%;
+      width: 60%;
 
       img {
         width: 100%;
@@ -92,7 +92,8 @@
   @media only screen and (max-width: 500px) {
     .content {
       width: 100%;
-      height: 70%;
+      height: 60%;
+      padding: 2em clamp(1em, 3vw, 3em);
 
       .numbers {
         width: 80%;
