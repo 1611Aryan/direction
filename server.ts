@@ -8,7 +8,7 @@ import cookieParser from "cookie-parser"
 import UserRouter from "./Routes/routes"
 
 import { config } from "dotenv"
-process.env.development !== "production" && config()
+process.env.NODE_ENV !== "production" && config()
 
 const PORT = process.env.PORT || 5000
 
@@ -20,7 +20,7 @@ app.use(helmet())
 app.use(
   cors({
     origin:
-      process.env.development === "production"
+      process.env.NODE_ENV === "production"
         ? "https://iiche-recruitments.netlify.app/"
         : "http://localhost:3000",
     credentials: true,
