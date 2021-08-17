@@ -15,7 +15,9 @@ const Done: React.FC<{
 
         {done.success ? (
           <p>
-            <span className="thanks">Thanks for filling out the form</span>
+            <span className="thanks">
+              Thanks for filling out the form for IIChE Recruitments
+            </span>
             <br />
             We will Get back to you soon!
           </p>
