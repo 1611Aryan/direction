@@ -60,20 +60,28 @@ export const createUser: controller = async (req, res) => {
   const experience =
     req.body.experience && req.body.experience.toString().trim()
   const aptitude = req.body.aptitude && req.body.aptitude.toString().trim()
+  const song = req.body.song && req.body.song.toString().trim()
+  const event = req.body.event && req.body.event.toString().trim()
 
   const token = req.cookies["JWT-IIChE"]
-  console.log(token)
 
   try {
-    if (!year || !branch || !department || !experience || !aptitude || !token)
+    if (
+      !year ||
+      !branch ||
+      !department ||
+      !experience ||
+      !aptitude ||
+      !token ||
+      !song ||
+      !event
+    )
       return res.sendStatus(400)
 
     const payload = jwt.verify(token, process.env.JWT_SECRET) as {
       name: string
       email: string
     }
-
-    console.log(payload)
 
     const name = payload.name
     const email = payload.email
@@ -82,7 +90,7 @@ export const createUser: controller = async (req, res) => {
     if (userExistenceCheck)
       return res.status(409).send({ message: "Already Filled the Form" })
 
-    const user = await User.create({
+    await User.create({
       name,
       email,
       year,
@@ -90,6 +98,8 @@ export const createUser: controller = async (req, res) => {
       department,
       experience,
       aptitude,
+      song,
+      event,
     })
 
     return res.status(200).clearCookie("JWT_IIChE").send({ success: true })

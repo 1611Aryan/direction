@@ -8,6 +8,8 @@ export type UserI = {
   department: string
   experience: string
   aptitude: string
+  song: string
+  event: string
 }
 
 const UserSchema = new Schema<UserI>(
@@ -22,6 +24,8 @@ const UserSchema = new Schema<UserI>(
     department: { type: Array, required: true },
     experience: { type: String, required: true },
     aptitude: { type: String, required: true },
+    song: { type: String, required: true },
+    event: { type: String, required: true },
   },
   {
     timestamps: true,
