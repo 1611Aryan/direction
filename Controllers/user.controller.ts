@@ -1,6 +1,7 @@
 import { Request, Response } from "express-serve-static-core"
 import User from "../Models/User.model"
 import jwt from "jsonwebtoken"
+import { transporter } from "./../server"
 
 type controller = (req: Request, res: Response) => Promise<Response>
 
@@ -23,7 +24,7 @@ export const userExistenceCheck: controller = async (req, res) => {
     if (!email || !name) return res.sendStatus(400)
     const user = !!(await User.findOne({ email }).lean())
 
-    if (user) return res.sendStatus(409)
+    if (user) return res.status(409).send({ message: "Already Submitted" })
 
     const payload = {
       name,
@@ -35,8 +36,8 @@ export const userExistenceCheck: controller = async (req, res) => {
     return res
       .status(200)
       .cookie("JWT-IIChE", token, {
-        //? 3 Hour
-        maxAge: 10_800_000,
+        //? 1 Day
+        maxAge: 86_400_000,
         httpOnly: true,
         sameSite: "none",
         secure: true,
@@ -62,6 +63,7 @@ export const createUser: controller = async (req, res) => {
   const aptitude = req.body.aptitude && req.body.aptitude.toString().trim()
   const song = req.body.song && req.body.song.toString().trim()
   const event = req.body.event && req.body.event.toString().trim()
+  const phone = req.body.phone && req.body.phone.toString().trim()
 
   const token = req.cookies["JWT-IIChE"]
 
@@ -74,7 +76,8 @@ export const createUser: controller = async (req, res) => {
       !aptitude ||
       !token ||
       !song ||
-      !event
+      !event ||
+      !phone
     )
       return res.sendStatus(400)
 
@@ -100,7 +103,38 @@ export const createUser: controller = async (req, res) => {
       aptitude,
       song,
       event,
+      phone,
     })
+
+    const options = {
+      from: process.env.NODEMAILER_SENDER,
+      to: email,
+      subject: "IIChE TIET Recruitments",
+      html: `
+      Hello ${name},
+<br />
+<br />
+We hope that you and your family are doing great during this pandemic.
+<br />
+This mail is to confirm that we have successfully received your recruitment form for IIChE TIET and our team will shortly contact you with further information.
+<br /><br />
+We recommend you to stay active on your gmail and WhatsApp.
+<br /><br />
+Good Luck for the next round!!
+<br /><br />
+If you have any query you can contact the following people
+<br />
+Parth Sood (GenSec) : 7986810284
+<br />
+Anushka Khera(GenSec) : 7428265269
+<br />
+Or simply reply to this mail thread
+<br /><br />
+Regards
+Team IIChE TIET
+      `,
+    }
+    transporter.sendMail(options)
 
     return res.status(200).clearCookie("JWT_IIChE").send({ success: true })
   } catch (err) {

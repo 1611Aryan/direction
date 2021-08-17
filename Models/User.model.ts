@@ -10,6 +10,7 @@ export type UserI = {
   aptitude: string
   song: string
   event: string
+  phone: string
 }
 
 const UserSchema = new Schema<UserI>(
@@ -26,6 +27,7 @@ const UserSchema = new Schema<UserI>(
     aptitude: { type: String, required: true },
     song: { type: String, required: true },
     event: { type: String, required: true },
+    phone: { type: String, required: true },
   },
   {
     timestamps: true,

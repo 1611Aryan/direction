@@ -4,6 +4,7 @@ import helmet from "helmet"
 import mongoose from "mongoose"
 import cors from "cors"
 import cookieParser from "cookie-parser"
+import nodemailer from "nodemailer"
 
 import UserRouter from "./Routes/routes"
 
@@ -37,6 +38,16 @@ const mongoOptions = {
 }
 
 mongoose.connect(MongoURI, mongoOptions)
+
+export const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.NODEMAILER_USER,
+    pass: process.env.NODEMAILER_PASSWORD,
+  },
+})
 
 const connection = mongoose.connection
 

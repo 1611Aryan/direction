@@ -8,7 +8,7 @@ import {
 
 const router = Router()
 
-router.get("/user", getUsers)
+//router.get("/user", getUsers)
 
 router.post("/check", userExistenceCheck)
 
