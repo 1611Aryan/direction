@@ -164,7 +164,6 @@ const Page1: React.FC<{
           value={input.phone}
           name="phone"
           onChange={changeHandler}
-          autoFocus
           required
         />
       </div>
