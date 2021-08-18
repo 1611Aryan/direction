@@ -78,15 +78,54 @@ const Page1: React.FC<{
     })
   }
 
+  const updateCheckBoxInput = (
+    ref: React.RefObject<HTMLInputElement>,
+    type: string
+  ) => {
+    if (ref.current && ref.current.checked)
+      setInput(input => ({
+        ...input,
+        department: input.department[0] ? [...input.department, type] : [type],
+      }))
+    else
+      setInput(input => ({
+        ...input,
+        department: input.department.filter(d => d !== type),
+      }))
+  }
+
   const checkBoxHandler = (type: string) => {
-    if (type === "technical" && technicalInput.current)
+    if (type === "technical" && technicalInput.current) {
       technicalInput.current.checked = !technicalInput.current.checked
-    if (type === "content" && contentInput.current)
+      updateCheckBoxInput(technicalInput, "technical")
+    }
+    if (type === "content" && contentInput.current) {
       contentInput.current.checked = !contentInput.current.checked
-    if (type === "design" && designInput.current)
+      updateCheckBoxInput(contentInput, "content")
+    }
+    if (type === "design" && designInput.current) {
       designInput.current.checked = !designInput.current.checked
-    if (type === "marketing" && marketingInput.current)
+      updateCheckBoxInput(designInput, "design")
+    }
+    if (type === "marketing" && marketingInput.current) {
       marketingInput.current.checked = !marketingInput.current.checked
+      updateCheckBoxInput(marketingInput, "marketing")
+
+      if (
+        input.year &&
+        input.branch &&
+        technicalInput.current &&
+        contentInput.current &&
+        marketingInput.current &&
+        designInput.current &&
+        (technicalInput.current.checked ||
+          contentInput.current.checked ||
+          marketingInput.current.checked ||
+          designInput.current.checked)
+      )
+        setFilled(true)
+      else setFilled(false)
+    }
   }
 
   const next = () => {
