@@ -110,22 +110,22 @@ const Page1: React.FC<{
     if (type === "marketing" && marketingInput.current) {
       marketingInput.current.checked = !marketingInput.current.checked
       updateCheckBoxInput(marketingInput, "marketing")
-
-      if (
-        input.year &&
-        input.branch &&
-        technicalInput.current &&
-        contentInput.current &&
-        marketingInput.current &&
-        designInput.current &&
-        (technicalInput.current.checked ||
-          contentInput.current.checked ||
-          marketingInput.current.checked ||
-          designInput.current.checked)
-      )
-        setFilled(true)
-      else setFilled(false)
     }
+
+    if (
+      input.year &&
+      input.branch &&
+      technicalInput.current &&
+      contentInput.current &&
+      marketingInput.current &&
+      designInput.current &&
+      (technicalInput.current.checked ||
+        contentInput.current.checked ||
+        marketingInput.current.checked ||
+        designInput.current.checked)
+    )
+      setFilled(true)
+    else setFilled(false)
   }
 
   const next = () => {
