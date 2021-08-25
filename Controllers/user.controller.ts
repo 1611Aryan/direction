@@ -7,8 +7,15 @@ type controller = (req: Request, res: Response) => Promise<Response>
 
 export const getUsers: controller = async (req, res) => {
   try {
-    const users = await User.find({}).lean()
-    if (users.length > 0) return res.status(200).send(users)
+    const users = await User.find(
+      {},
+      { _id: 0, createdAt: 0, updatedAt: 0, __v: 0 }
+    ).lean()
+    if (users.length > 0)
+      return res.status(200).send({
+        length: users.length,
+        users,
+      })
     return res.status(200).send("No Users")
   } catch (err) {
     console.log({ get: err })
@@ -21,10 +28,20 @@ export const userExistenceCheck: controller = async (req, res) => {
   const email = req.body.email && req.body.email.toString().trim()
 
   try {
-    if (!email || !name) return res.sendStatus(400)
+    if (!email || !name) {
+      console.log({
+        email,
+        name,
+      })
+      console.log(`${name} used Check -> failed due to bad request`)
+      return res.sendStatus(400)
+    }
     const user = !!(await User.findOne({ email }).lean())
 
-    if (user) return res.status(409).send({ message: "Already Submitted" })
+    if (user) {
+      console.log(`${name} used Check -> Already Submitted `)
+      return res.status(409).send({ message: "Already Submitted" })
+    }
 
     const payload = {
       name,
@@ -32,6 +49,8 @@ export const userExistenceCheck: controller = async (req, res) => {
     }
 
     const token = jwt.sign(payload, process.env.JWT_SECRET)
+
+    console.log(`${name} used Check -> Success `)
 
     return res
       .status(200)
@@ -49,7 +68,7 @@ export const userExistenceCheck: controller = async (req, res) => {
     console.log({
       userExistCheck: err,
     })
-
+    console.log(`${name} used Check ->Failed`)
     return res.status(500).send(err)
   }
 }
@@ -78,9 +97,21 @@ export const createUser: controller = async (req, res) => {
       !song ||
       !event ||
       !phone
-    )
-      return res.sendStatus(400)
+    ) {
+      console.log({
+        year,
+        branch,
+        department,
+        experience,
+        aptitude,
+        token,
+        song,
+        event,
+        phone,
+      })
 
+      return res.status(400).send({ message: "Incorrect request" })
+    }
     const payload = jwt.verify(token, process.env.JWT_SECRET) as {
       name: string
       email: string
@@ -90,8 +121,11 @@ export const createUser: controller = async (req, res) => {
     const email = payload.email
 
     const userExistenceCheck = !!(await User.findOne({ email }).lean())
-    if (userExistenceCheck)
+    if (userExistenceCheck) {
+      console.log(`${payload.name} used Submit ->Already Submitted`)
+
       return res.status(409).send({ message: "Already Filled the Form" })
+    }
 
     await User.create({
       name,
