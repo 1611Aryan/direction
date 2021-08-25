@@ -42,17 +42,21 @@ const Form: React.FC<{
     e.preventDefault()
 
     if (
-      !input.aptitude ||
-      !input.branch ||
+      !input.aptitude.trim() ||
+      !input.branch.trim() ||
       !input.department ||
-      !input.department[0] ||
-      !input.event ||
-      !input.experience ||
-      !input.song ||
-      !input.year ||
-      !input.phone
-    )
+      !input.department[0].trim() ||
+      !input.event.trim() ||
+      !input.experience.trim() ||
+      !input.song.trim() ||
+      !input.year.trim() ||
+      !input.phone.trim()
+    ) {
+      console.error({
+        message: "Input Field is Empty",
+      })
       return
+    }
 
     setLoading(true)
     try {
