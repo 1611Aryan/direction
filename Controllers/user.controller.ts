@@ -24,8 +24,11 @@ export const getUsers: controller = async (req, res) => {
 }
 
 export const userExistenceCheck: controller = async (req, res) => {
-  const name = req.body.name && req.body.name.toString().trim()
-  const email = req.body.email && req.body.email.toString().trim()
+  const name =
+    (req.body.name && (req.body.name.toString().trim() as string)) || null
+  const email =
+    (req.body.email && (req.body.email.toString().trim() as string)) || null
+  const cookiesEnabled = req.body.cookiesEnabled as boolean
 
   try {
     if (!email || !name) {
@@ -52,18 +55,23 @@ export const userExistenceCheck: controller = async (req, res) => {
 
     console.log(`${name} used Check -> Success `)
 
-    return res
-      .status(200)
-      .cookie("JWT-IIChE", token, {
-        //? 1 Day
-        maxAge: 86_400_000,
-        httpOnly: true,
-        sameSite: "none",
-        secure: true,
-      })
-      .send({
-        access: true,
-      })
+    return cookiesEnabled
+      ? res
+          .status(200)
+          .cookie("JWT-IIChE", token, {
+            //? 1 Day
+            maxAge: 86_400_000,
+            httpOnly: true,
+            sameSite: "none",
+            secure: true,
+          })
+          .send({
+            access: true,
+          })
+      : res.status(200).send({
+          access: true,
+          jwt: token,
+        })
   } catch (err) {
     console.log({
       userExistCheck: err,
@@ -74,18 +82,28 @@ export const userExistenceCheck: controller = async (req, res) => {
 }
 
 export const createUser: controller = async (req, res) => {
-  const year = req.body.year && req.body.year.toString().trim()
-  const branch = req.body.branch && req.body.branch.toString().trim()
-  const department = req.body.department
+  const year =
+    (req.body.year && (req.body.year.toString().trim() as string)) || null
+  const branch =
+    (req.body.branch && (req.body.branch.toString().trim() as string)) || null
+  const department = (req.body.department as string[]) || null
   const experience =
-    req.body.experience && req.body.experience.toString().trim()
-  const aptitude = req.body.aptitude && req.body.aptitude.toString().trim()
-  const song = req.body.song && req.body.song.toString().trim()
-  const event = req.body.event && req.body.event.toString().trim()
-  const phone = req.body.phone && req.body.phone.toString().trim()
+    (req.body.experience &&
+      (req.body.experience.toString().trim() as string)) ||
+    null
+  const aptitude =
+    (req.body.aptitude && (req.body.aptitude.toString().trim() as string)) ||
+    null
+  const song =
+    (req.body.song && (req.body.song.toString().trim() as string)) || null
+  const event =
+    (req.body.event && (req.body.event.toString().trim() as string)) || null
+  const phone =
+    (req.body.phone && (req.body.phone.toString().trim() as string)) || null
 
-  const token = req.cookies["JWT-IIChE"]
+  const cookiesEnabled = req.body.cookiesEnabled as boolean
 
+  const token = cookiesEnabled ? req.cookies["JWT-IIChE"] : req.body.jwt
   try {
     if (
       !year ||
