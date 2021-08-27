@@ -1,10 +1,21 @@
 import axios from "axios"
-import React, { useState } from "react"
-import { useRef } from "react"
+import React, { useState, useRef } from "react"
+
 import { createUserEndpoint } from "../../API_Endpoints"
 import Page1 from "./Page1"
 import Page2 from "./Page2"
 import Page3 from "./Page3"
+
+type input = {
+  year: string
+  branch: string
+  department: string[]
+  experience: string
+  aptitude: string
+  song: string
+  event: string
+  phone: string
+}
 
 const Form: React.FC<{
   setDone: React.Dispatch<
@@ -18,16 +29,7 @@ const Form: React.FC<{
   const pageContainerRef = useRef<HTMLDivElement>(null)
 
   const [loading, setLoading] = useState(false)
-  const [input, setInput] = useState<{
-    year: string
-    branch: string
-    department: string[]
-    experience: string
-    aptitude: string
-    song: string
-    event: string
-    phone: string
-  }>({
+  const [input, setInput] = useState<input>({
     year: "",
     branch: "",
     department: [""],
@@ -60,9 +62,17 @@ const Form: React.FC<{
 
     setLoading(true)
     try {
-      await axios[createUserEndpoint.method](createUserEndpoint.url, input, {
-        withCredentials: true,
-      })
+      await axios[createUserEndpoint.method](
+        createUserEndpoint.url,
+        {
+          ...input,
+          cookiesEnabled: navigator.cookieEnabled,
+          jwt: new URLSearchParams(window.location.search).get("s"),
+        },
+        {
+          withCredentials: true,
+        }
+      )
 
       setTimeout(() => {
         setLoading(false)

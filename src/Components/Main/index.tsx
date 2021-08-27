@@ -1,5 +1,6 @@
 import axios from "axios"
 import React, { useState } from "react"
+import { useHistory } from "react-router-dom"
 import { checkUserEndpoint } from "../../API_Endpoints"
 import "./index.scss"
 
@@ -13,6 +14,8 @@ const Main: React.FC<{
   const [loading, setLoading] = useState(false)
   const [err, setErr] = useState("")
 
+  const history = useHistory()
+
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(input => ({ ...input, [e.target.name]: e.target.value }))
   }
@@ -20,12 +23,22 @@ const Main: React.FC<{
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoading(true)
+
     try {
       const res = await axios[checkUserEndpoint.method]<{
         access: boolean
-      }>(checkUserEndpoint.url, input, {
-        withCredentials: true,
-      })
+        jwt?: string
+      }>(
+        checkUserEndpoint.url,
+        {
+          ...input,
+          cookiesEnabled: navigator.cookieEnabled,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      res.data.jwt && history.push(`/?s=${res.data.jwt}`)
       setLoading(false)
       setAccess(res.data.access)
     } catch (err) {
