@@ -1,6 +1,5 @@
 import { Request, Response } from "express-serve-static-core"
 import User from "../Models/User.model"
-import jwt from "jsonwebtoken"
 import { transporter } from "./../server"
 
 type controller = (req: Request, res: Response) => Promise<Response>
@@ -28,7 +27,6 @@ export const userExistenceCheck: controller = async (req, res) => {
     (req.body.name && (req.body.name.toString().trim() as string)) || null
   const email =
     (req.body.email && (req.body.email.toString().trim() as string)) || null
-  const cookiesEnabled = req.body.cookiesEnabled as boolean
 
   try {
     if (!email || !name) {
@@ -46,32 +44,11 @@ export const userExistenceCheck: controller = async (req, res) => {
       return res.status(409).send({ message: "Already Submitted" })
     }
 
-    const payload = {
-      name,
-      email,
-    }
-
-    const token = jwt.sign(payload, process.env.JWT_SECRET)
-
     console.log(`${name} used Check -> Success `)
 
-    return cookiesEnabled
-      ? res
-          .status(200)
-          .cookie("JWT-IIChE", token, {
-            //? 1 Day
-            maxAge: 86_400_000,
-            httpOnly: true,
-            sameSite: "none",
-            secure: true,
-          })
-          .send({
-            access: true,
-          })
-      : res.status(200).send({
-          access: true,
-          jwt: token,
-        })
+    return res.status(200).send({
+      access: true,
+    })
   } catch (err) {
     console.log({
       userExistCheck: err,
@@ -82,6 +59,11 @@ export const userExistenceCheck: controller = async (req, res) => {
 }
 
 export const createUser: controller = async (req, res) => {
+  const name =
+    (req.body.name && (req.body.name.toString().trim() as string)) || null
+  const email =
+    (req.body.email && (req.body.email.toString().trim() as string)) || null
+
   const year =
     (req.body.year && (req.body.year.toString().trim() as string)) || null
   const branch =
@@ -101,9 +83,6 @@ export const createUser: controller = async (req, res) => {
   const phone =
     (req.body.phone && (req.body.phone.toString().trim() as string)) || null
 
-  const cookiesEnabled = req.body.cookiesEnabled as boolean
-
-  const token = cookiesEnabled ? req.cookies["JWT-IIChE"] : req.body.jwt
   try {
     if (
       !year ||
@@ -111,7 +90,8 @@ export const createUser: controller = async (req, res) => {
       !department ||
       !experience ||
       !aptitude ||
-      !token ||
+      !email ||
+      !name ||
       !song ||
       !event ||
       !phone
@@ -122,7 +102,8 @@ export const createUser: controller = async (req, res) => {
         department,
         experience,
         aptitude,
-        token,
+        name,
+        email,
         song,
         event,
         phone,
@@ -130,17 +111,10 @@ export const createUser: controller = async (req, res) => {
 
       return res.status(400).send({ message: "Incorrect request" })
     }
-    const payload = jwt.verify(token, process.env.JWT_SECRET) as {
-      name: string
-      email: string
-    }
-
-    const name = payload.name
-    const email = payload.email
 
     const userExistenceCheck = !!(await User.findOne({ email }).lean())
     if (userExistenceCheck) {
-      console.log(`${payload.name} used Submit ->Already Submitted`)
+      console.log(`${name} used Submit ->Already Submitted`)
 
       return res.status(409).send({ message: "Already Filled the Form" })
     }
