@@ -23,6 +23,9 @@ export const getUsers: controller = async (req, res) => {
 }
 
 export const userExistenceCheck: controller = async (req, res) => {
+  if (!process.env.isActive)
+    return res.status(403).send({ message: "The form has been closed" })
+
   const name =
     (req.body.name && (req.body.name.toString().trim() as string)) || null
   const email =
@@ -59,6 +62,9 @@ export const userExistenceCheck: controller = async (req, res) => {
 }
 
 export const createUser: controller = async (req, res) => {
+  if (!process.env.isActive)
+    return res.status(403).send({ message: "The form has been closed" })
+
   const name =
     (req.body.name && (req.body.name.toString().trim() as string)) || null
   const email =
