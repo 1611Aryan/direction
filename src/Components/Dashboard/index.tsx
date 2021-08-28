@@ -6,7 +6,12 @@ import "./index.scss"
 import { useState } from "react"
 import Done from "./Done"
 
-const Dashboard = () => {
+const Dashboard: React.FC<{
+  name_email: {
+    name: string
+    email: string
+  }
+}> = ({ name_email }) => {
   const [done, setDone] = useState({
     done: false,
     success: false,
@@ -20,7 +25,11 @@ const Dashboard = () => {
       </header>
       <img className="illustration" src={illustration} alt="" />
       <div className="overlay"></div>
-      {done.done ? <Done done={done} /> : <Form setDone={setDone} />}
+      {done.done ? (
+        <Done done={done} />
+      ) : (
+        <Form name_email={name_email} setDone={setDone} />
+      )}
     </div>
   )
 }

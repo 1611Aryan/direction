@@ -1,23 +1,27 @@
 import axios from "axios"
 import React, { useState } from "react"
-import { useHistory } from "react-router-dom"
+
 import { checkUserEndpoint } from "../../API_Endpoints"
 import "./index.scss"
 
 const Main: React.FC<{
   setAccess: React.Dispatch<React.SetStateAction<boolean>>
-}> = ({ setAccess }) => {
-  const [input, setInput] = useState({
-    name: "",
-    email: "",
-  })
+  setName_Email: React.Dispatch<
+    React.SetStateAction<{
+      name: string
+      email: string
+    }>
+  >
+  name_email: {
+    name: string
+    email: string
+  }
+}> = ({ setAccess, setName_Email, name_email }) => {
   const [loading, setLoading] = useState(false)
   const [err, setErr] = useState("")
 
-  const history = useHistory()
-
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(input => ({ ...input, [e.target.name]: e.target.value }))
+    setName_Email(input => ({ ...input, [e.target.name]: e.target.value }))
   }
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -27,18 +31,8 @@ const Main: React.FC<{
     try {
       const res = await axios[checkUserEndpoint.method]<{
         access: boolean
-        jwt?: string
-      }>(
-        checkUserEndpoint.url,
-        {
-          ...input,
-          cookiesEnabled: navigator.cookieEnabled,
-        },
-        {
-          withCredentials: true,
-        }
-      )
-      res.data.jwt && history.push(`/?s=${res.data.jwt}`)
+      }>(checkUserEndpoint.url, name_email)
+
       setLoading(false)
       setAccess(res.data.access)
     } catch (err) {
@@ -69,7 +63,7 @@ const Main: React.FC<{
           <input
             type="text"
             name="name"
-            value={input.name}
+            value={name_email.name}
             autoFocus
             required
             onChange={changeHandler}
@@ -80,7 +74,7 @@ const Main: React.FC<{
           <input
             name="email"
             type="email"
-            value={input.email}
+            value={name_email.email}
             required
             onChange={changeHandler}
           />

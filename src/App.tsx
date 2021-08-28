@@ -3,18 +3,16 @@ import Dashboard from "./Components/Dashboard"
 import Header from "./Components/Header"
 import Main from "./Components/Main"
 import illustration from "./Media/Illustration.png"
-import { Route, Switch, useHistory } from "react-router-dom"
+import { Route, Switch } from "react-router-dom"
 import Contact from "./Components/Contact"
-import { useEffect } from "react"
 
 const App = () => {
   const [access, setAccess] = useState(false)
-  const history = useHistory()
 
-  useEffect(() => {
-    history.replace("/")
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  const [name_email, setName_Email] = useState({
+    name: "",
+    email: "",
+  })
 
   return (
     <Switch>
@@ -23,13 +21,17 @@ const App = () => {
       </Route>
       <Route path="/">
         {access ? (
-          <Dashboard />
+          <Dashboard name_email={name_email} />
         ) : (
           <div>
             <Header />
             <img className="illustration" src={illustration} alt="" />
             <div className="overlay"></div>
-            <Main setAccess={setAccess} />
+            <Main
+              name_email={name_email}
+              setName_Email={setName_Email}
+              setAccess={setAccess}
+            />
           </div>
         )}
       </Route>

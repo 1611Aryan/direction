@@ -25,7 +25,12 @@ const Form: React.FC<{
       message: string
     }>
   >
-}> = ({ setDone }) => {
+
+  name_email: {
+    name: string
+    email: string
+  }
+}> = ({ setDone, name_email }) => {
   const pageContainerRef = useRef<HTMLDivElement>(null)
 
   const [loading, setLoading] = useState(false)
@@ -66,8 +71,7 @@ const Form: React.FC<{
         createUserEndpoint.url,
         {
           ...input,
-          cookiesEnabled: navigator.cookieEnabled,
-          jwt: new URLSearchParams(window.location.search).get("s"),
+          ...name_email,
         },
         {
           withCredentials: true,
