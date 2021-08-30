@@ -4,6 +4,12 @@ import { transporter } from "./../server"
 
 type controller = (req: Request, res: Response) => Promise<Response>
 
+const toBool = (input: string) => {
+  if (input === "false") return false
+
+  return true
+}
+
 export const getUsers: controller = async (req, res) => {
   try {
     const users = await User.find(
@@ -23,7 +29,7 @@ export const getUsers: controller = async (req, res) => {
 }
 
 export const userExistenceCheck: controller = async (req, res) => {
-  if (!process.env.isActive)
+  if (!toBool(process.env.isActive))
     return res.status(403).send({ message: "The form has been closed" })
 
   const name =
@@ -62,7 +68,7 @@ export const userExistenceCheck: controller = async (req, res) => {
 }
 
 export const createUser: controller = async (req, res) => {
-  if (!process.env.isActive)
+  if (!toBool(process.env.isActive))
     return res.status(403).send({ message: "The form has been closed" })
 
   const name =
