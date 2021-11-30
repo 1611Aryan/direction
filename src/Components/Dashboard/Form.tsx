@@ -3,17 +3,12 @@ import React, { useState, useRef } from "react"
 
 import { createUserEndpoint } from "../../API_Endpoints"
 import Page1 from "./Page1"
-import Page2 from "./Page2"
-import Page3 from "./Page3"
 
-type input = {
+export type input = {
   year: string
   branch: string
   department: string[]
-  experience: string
-  aptitude: string
-  song: string
-  event: string
+
   phone: string
 }
 
@@ -38,10 +33,7 @@ const Form: React.FC<{
     year: "",
     branch: "",
     department: [""],
-    experience: "",
-    aptitude: "",
-    song: "",
-    event: "",
+
     phone: "",
   })
 
@@ -49,13 +41,9 @@ const Form: React.FC<{
     e.preventDefault()
 
     if (
-      !input.aptitude.trim() ||
       !input.branch.trim() ||
       !input.department ||
       !input.department[0].trim() ||
-      !input.event.trim() ||
-      !input.experience.trim() ||
-      !input.song.trim() ||
       !input.year.trim() ||
       !input.phone.trim()
     ) {
@@ -86,7 +74,7 @@ const Form: React.FC<{
           message: "",
         })
       }, 200)
-    } catch (err) {
+    } catch (err: any) {
       if (err.response) console.log(err.response.data)
       else console.log(err)
 
@@ -116,16 +104,6 @@ const Form: React.FC<{
       <form onSubmit={submitHandler}>
         <div className="pageContainer" ref={pageContainerRef}>
           <Page1
-            pageContainerRef={pageContainerRef}
-            input={input}
-            setInput={setInput}
-          />
-          <Page2
-            pageContainerRef={pageContainerRef}
-            input={input}
-            setInput={setInput}
-          />
-          <Page3
             pageContainerRef={pageContainerRef}
             input={input}
             setInput={setInput}

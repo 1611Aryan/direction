@@ -1,30 +1,11 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useRef } from "react"
+import { input } from "./Form"
 
 const Page1: React.FC<{
   pageContainerRef: React.RefObject<HTMLDivElement>
-  input: {
-    year: string
-    branch: string
-    department: string[]
-    experience: string
-    aptitude: string
-    song: string
-    event: string
-    phone: string
-  }
-  setInput: React.Dispatch<
-    React.SetStateAction<{
-      year: string
-      branch: string
-      department: string[]
-      experience: string
-      aptitude: string
-      song: string
-      event: string
-      phone: string
-    }>
-  >
+  input: input
+  setInput: React.Dispatch<React.SetStateAction<input>>
 }> = ({ pageContainerRef, input, setInput }) => {
   const [filled, setFilled] = useState(false)
 
@@ -33,23 +14,7 @@ const Page1: React.FC<{
   const marketingInput = useRef<HTMLInputElement>(null)
   const designInput = useRef<HTMLInputElement>(null)
 
-  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (
-      input.year &&
-      input.branch &&
-      technicalInput.current &&
-      contentInput.current &&
-      marketingInput.current &&
-      designInput.current &&
-      (technicalInput.current.checked ||
-        contentInput.current.checked ||
-        marketingInput.current.checked ||
-        designInput.current.checked) &&
-      e.target.value
-    )
-      setFilled(true)
-    else setFilled(false)
-
+  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) =>
     setInput(input => {
       if (e.target.name !== "department")
         return {
@@ -76,7 +41,20 @@ const Page1: React.FC<{
         department,
       }
     })
-  }
+
+  useEffect(() => {
+    if (
+      input.year &&
+      input.branch &&
+      input.phone &&
+      (technicalInput.current!.checked ||
+        contentInput.current!.checked ||
+        marketingInput.current!.checked ||
+        designInput.current!.checked)
+    )
+      setFilled(true)
+    else setFilled(false)
+  }, [input])
 
   const updateCheckBoxInput = (
     ref: React.RefObject<HTMLInputElement>,
@@ -110,27 +88,6 @@ const Page1: React.FC<{
     if (type === "marketing" && marketingInput.current) {
       marketingInput.current.checked = !marketingInput.current.checked
       updateCheckBoxInput(marketingInput, "marketing")
-    }
-
-    if (
-      input.year &&
-      input.branch &&
-      technicalInput.current &&
-      contentInput.current &&
-      marketingInput.current &&
-      designInput.current &&
-      (technicalInput.current.checked ||
-        contentInput.current.checked ||
-        marketingInput.current.checked ||
-        designInput.current.checked)
-    )
-      setFilled(true)
-    else setFilled(false)
-  }
-
-  const next = () => {
-    if (pageContainerRef.current) {
-      pageContainerRef.current.style.transform = "translateX(-33.3%)"
     }
   }
 
@@ -231,13 +188,7 @@ const Page1: React.FC<{
         </div>
       </div>
       <div className="btnContainer">
-        <button
-          type="button"
-          className={filled ? "" : "disable"}
-          onClick={next}
-        >
-          Next
-        </button>
+        <button className={filled ? "" : "disable"}>Submit</button>
       </div>
     </div>
   )

@@ -1,4 +1,4 @@
-@use './loader';
+@use "./loader";
 
 main {
   padding: 0 clamp(1em, 3vw, 2em);
@@ -31,7 +31,7 @@ main {
     }
 
     .grow {
-      font-size: 2.5em;
+      font-size: 1.5em;
     }
   }
 

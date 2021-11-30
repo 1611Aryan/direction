@@ -35,7 +35,7 @@ const Main: React.FC<{
 
       setLoading(false)
       setAccess(res.data.access)
-    } catch (err) {
+    } catch (err: any) {
       if (err.response) {
         console.log(err.response.data.message)
         setErr(err.response.data.message)
@@ -51,8 +51,8 @@ const Main: React.FC<{
     <main>
       <p>
         <span className="small">IIChE TIET's</span>
-        <span>RECRUITMENT</span>
-        <span className="grow">FORM</span>
+        <span>Orientation</span>
+        <span className="grow">DIRECTION 2.0</span>
       </p>
 
       <form onSubmit={submitHandler}>
