@@ -128,7 +128,7 @@ export const createUser: controller = async (req, res) => {
     <br />
     We hope that you are doing great.
     <br />
-    This mail is to confirm that we have successfully received your form for IIChE TIET's DIRECTION 2.0 .
+    This mail is to confirm that we have successfully received your form for IIChE TIET's DIRECTION 2.0
     <br /><br />
     Looking Forward to seeing you on 4th December.
     <br /><br />
