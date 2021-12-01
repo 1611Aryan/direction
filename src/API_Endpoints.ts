@@ -5,7 +5,7 @@ type Endpoint = {
 
 const baseUrl =
   process.env.NODE_ENV === "production"
-    ? "https://direction-2.herokuapp.com/"
+    ? "https://direction-2.herokuapp.com"
     : "http://localhost:5000"
 
 export const checkUserEndpoint: Endpoint = {
