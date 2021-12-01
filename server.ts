@@ -5,7 +5,6 @@ import mongoose from "mongoose"
 import cors from "cors"
 import cookieParser from "cookie-parser"
 
-
 import UserRouter from "./Routes/routes"
 
 import { config } from "dotenv"
@@ -22,7 +21,7 @@ app.use(
   cors({
     origin:
       process.env.NODE_ENV === "production"
-        ? "https://iiche-recruitments.netlify.app"
+        ? "https://iiche-direction.netlify.app/"
         : "http://localhost:3000",
     credentials: true,
   })
@@ -38,8 +37,6 @@ const mongoOptions = {
 }
 
 mongoose.connect(MongoURI, mongoOptions)
-
-
 
 const connection = mongoose.connection
 
