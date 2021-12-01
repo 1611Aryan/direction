@@ -1,5 +1,5 @@
 import axios from "axios"
-import React, { useState, useRef } from "react"
+import React, { useState } from "react"
 
 import { createUserEndpoint } from "../../API_Endpoints"
 import Page1 from "./Page1"
@@ -26,8 +26,6 @@ const Form: React.FC<{
     email: string
   }
 }> = ({ setDone, name_email }) => {
-  const pageContainerRef = useRef<HTMLDivElement>(null)
-
   const [loading, setLoading] = useState(false)
   const [input, setInput] = useState<input>({
     year: "",
@@ -102,13 +100,7 @@ const Form: React.FC<{
   return (
     <div className="form">
       <form onSubmit={submitHandler}>
-        <div className="pageContainer" ref={pageContainerRef}>
-          <Page1
-            pageContainerRef={pageContainerRef}
-            input={input}
-            setInput={setInput}
-          />
-        </div>
+        <Page1 input={input} setInput={setInput} />
       </form>
       {loading && (
         <div className="loader">

@@ -3,10 +3,9 @@ import { useRef } from "react"
 import { input } from "./Form"
 
 const Page1: React.FC<{
-  pageContainerRef: React.RefObject<HTMLDivElement>
   input: input
   setInput: React.Dispatch<React.SetStateAction<input>>
-}> = ({ pageContainerRef, input, setInput }) => {
+}> = ({ input, setInput }) => {
   const [filled, setFilled] = useState(false)
 
   const technicalInput = useRef<HTMLInputElement>(null)

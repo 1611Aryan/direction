@@ -10,7 +10,6 @@
   place-items: center;
 
   --width: 80vw;
-  --pages: 3;
 
   form {
     width: var(--width);
@@ -25,19 +24,10 @@
     overflow: hidden;
   }
 
-  .pageContainer {
-    width: calc(var(--pages) * var(--width));
-    height: 100%;
-
-    display: flex;
-
-    transition: transform ease-in-out 200ms;
-  }
-
   .page {
     padding: clamp(1em, 3vw, 3em);
     height: 100%;
-    width: var(--width);
+    width: 100%;
 
     display: flex;
     justify-content: space-between;
