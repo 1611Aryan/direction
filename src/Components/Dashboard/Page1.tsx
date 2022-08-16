@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react"
-import { useRef } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { input } from "./Form"
 
 const Page1: React.FC<{
@@ -13,12 +12,14 @@ const Page1: React.FC<{
   const marketingInput = useRef<HTMLInputElement>(null)
   const designInput = useRef<HTMLInputElement>(null)
 
-  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) =>
+  const changeHandler = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) =>
     setInput(input => {
       if (e.target.name !== "department")
         return {
           ...input,
-          [e.target.name]: e.target.value,
+          [e.target.name]: e.target.value.toString().trim(),
         }
 
       const department = []
@@ -41,15 +42,23 @@ const Page1: React.FC<{
       }
     })
 
+  const InputsNotEmpty = (input: input): boolean => {
+    let i = true
+    Object.values(input).forEach(val => {
+      console.log(val)
+      if (val === "" || val === [] || (Array.isArray(val) && val[0] === ""))
+        i = false
+    })
+    return i
+  }
+
   useEffect(() => {
     if (
-      input.year &&
-      input.branch &&
-      input.phone &&
-      (technicalInput.current!.checked ||
-        contentInput.current!.checked ||
-        marketingInput.current!.checked ||
-        designInput.current!.checked)
+      InputsNotEmpty(input) &&
+      (technicalInput.current?.checked ||
+        contentInput.current?.checked ||
+        designInput.current?.checked ||
+        marketingInput.current?.checked)
     )
       setFilled(true)
     else setFilled(false)
@@ -62,7 +71,7 @@ const Page1: React.FC<{
     if (ref.current && ref.current.checked)
       setInput(input => ({
         ...input,
-        department: input.department[0] ? [...input.department, type] : [type],
+        department: [...input.department, type],
       }))
     else
       setInput(input => ({
@@ -114,7 +123,7 @@ const Page1: React.FC<{
         />
       </div>
       <div className="inputContainer">
-        <label htmlFor="phone">Phone</label>
+        <label htmlFor="phone">Whatsapp Number</label>
         <input
           type="text"
           value={input.phone}
@@ -185,6 +194,61 @@ const Page1: React.FC<{
             Engagement and Design
           </label>
         </div>
+      </div>
+      <div className="inputContainer">
+        <label htmlFor="describe">Describe Yourself in One Word</label>
+        <input
+          type="text"
+          value={input.describe}
+          name="describe"
+          onChange={changeHandler}
+          required
+        />
+      </div>
+      <div className="inputContainer">
+        <label htmlFor="skills">Mention a few of your skills</label>
+        <textarea
+          value={input.skills}
+          name="skills"
+          onChange={changeHandler}
+          required
+        />
+      </div>
+      <div className="inputContainer">
+        <label htmlFor="failure">
+          List one of your biggest failure till date and how you faced through
+          it?
+        </label>
+        <textarea
+          value={input.failure}
+          name="failure"
+          onChange={changeHandler}
+          required
+        />
+      </div>
+      <div className="inputContainer">
+        <label htmlFor="achieve">
+          What do you think you can achieve in this fest that you can't at other
+          fest/societies?
+        </label>
+        <textarea
+          value={input.achieve}
+          name="achieve"
+          onChange={changeHandler}
+          required
+        />
+      </div>
+      <div className="inputContainer">
+        <label htmlFor="work_ethic">
+          In your opinion, is it better to do work that's perfect but late, or
+          good and on time?
+        </label>
+        <textarea
+          value={input.work_ethic}
+          name="work_ethic"
+          onChange={changeHandler}
+          required
+        />
       </div>
       <div className="btnContainer">
         <button className={filled ? "" : "disable"}>Submit</button>

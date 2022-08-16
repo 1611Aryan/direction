@@ -1,4 +1,4 @@
-import { FaInstagram, FaFacebookSquare, FaLinkedin } from "react-icons/fa"
+import { FaFacebookSquare, FaInstagram, FaLinkedin } from "react-icons/fa"
 import contact from "./../../Media/contact.png"
 
 const Main = () => {
@@ -9,16 +9,16 @@ const Main = () => {
 
         <div className="numbers">
           <p>
-            <span>Anushka:</span> <span className="number">+917428265269</span>
+            <span>Yashica:</span> <span className="number">+91 9873131504</span>
           </p>
           <p>
-            <span>Parth:</span> <span className="number">+917986810284</span>
+            <span>Parth:</span> <span className="number">+91 7986810284</span>
           </p>
         </div>
 
         <div className="icons">
           <a
-            href="https://www.instagram.com/iiche.tiet/"
+            href="https://www.instagram.com/oriontiet/"
             target="_blank"
             rel="noreferrer"
           >
@@ -26,7 +26,7 @@ const Main = () => {
           </a>
 
           <a
-            href="https://www.facebook.com/iiche.tiet"
+            href="https://www.facebook.com/oriontiet"
             target="_blank"
             rel="noreferrer"
           >
@@ -34,7 +34,7 @@ const Main = () => {
           </a>
 
           <a
-            href="https://www.linkedin.com/company/indian-institute-of-chemical-engineers-iiche-tiet/"
+            href="https://www.linkedin.com/company/oriontiet/"
             target="_blank"
             rel="noreferrer"
           >

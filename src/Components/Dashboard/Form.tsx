@@ -8,8 +8,12 @@ export type input = {
   year: string
   branch: string
   department: string[]
-
   phone: string
+  describe: string
+  skills: string
+  failure: string
+  achieve: string
+  work_ethic: string
 }
 
 const Form: React.FC<{
@@ -30,9 +34,13 @@ const Form: React.FC<{
   const [input, setInput] = useState<input>({
     year: "",
     branch: "",
-    department: [""],
-
+    department: [],
+    describe: "",
     phone: "",
+    skills: "",
+    failure: "",
+    achieve: "",
+    work_ethic: "",
   })
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {

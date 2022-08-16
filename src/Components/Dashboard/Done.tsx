@@ -16,7 +16,7 @@ const Done: React.FC<{
         {done.success ? (
           <p>
             <span className="thanks">
-              Thanks for filling out the form for IIChE TIET DIRECTION
+              Thanks for filling out the form for ORION TIET Recruitments
             </span>
           </p>
         ) : (

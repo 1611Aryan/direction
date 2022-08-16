@@ -1,17 +1,18 @@
 header {
   position: relative;
   z-index: 1;
-  padding: 0 clamp(1.5em, 3vw, 3em);
+  padding: 0 clamp(1.5em, 3vw, 2.5em);
 
   width: 100vw;
-  height: 12vh;
+  height: 15vh;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
 
   img {
-    height: 80%;
+    height: 100%;
+
     object-fit: cover;
   }
 

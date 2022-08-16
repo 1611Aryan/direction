@@ -50,9 +50,9 @@ const Main: React.FC<{
   return (
     <main>
       <p>
-        <span className="small">IIChE TIET's</span>
-        <span>Orientation</span>
-        <span className="grow">DIRECTION 2.0</span>
+        <span className="small">ORION TIET's</span>
+        <span>RECRUITMENTS</span>
+        <span className="grow">2022-2023</span>
       </p>
 
       <form onSubmit={submitHandler}>
@@ -70,7 +70,7 @@ const Main: React.FC<{
           />
         </div>
         <div className="inputContainer">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">Thapar Email</label>
           <input
             name="email"
             type="email"
