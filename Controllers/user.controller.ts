@@ -70,10 +70,10 @@ export const createUser: controller = async (req, res) => {
   if (!toBool(process.env.isActive))
     return res.status(403).send({ message: "The form has been closed" })
 
-  const { name, email, year, branch, department, phone, describe, skills, failure, achieve, work_ethic } = req.body as UserI
+  const { name, email, year, branch, department, phone, describe, skills, failure, achieve, work_ethic, idea } = req.body as UserI
 
   try {
-    if (!year || !branch || !department || !department[0] || !email || !name || !phone || !describe || !skills || !failure || !achieve || !work_ethic) {
+    if (!year || !branch || !department || !department[0] || !email || !name || !phone || !describe || !skills || !failure || !achieve || !work_ethic || !idea) {
 
       return res.status(400).send({ message: "Incorrect request" })
     }
@@ -86,7 +86,7 @@ export const createUser: controller = async (req, res) => {
     }
 
     await User.create({
-      name, email, year, branch, department, phone, describe, skills, failure, achieve, work_ethic
+      name, email, year, branch, department, phone, describe, skills, failure, achieve, work_ethic, idea
     })
 
 

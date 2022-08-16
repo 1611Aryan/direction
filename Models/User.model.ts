@@ -12,6 +12,7 @@ export type UserI = {
   failure: string,
   achieve: string
   work_ethic: string
+  idea: string
 }
 
 const UserSchema = new Schema<UserI>(
@@ -27,6 +28,7 @@ const UserSchema = new Schema<UserI>(
     failure: { type: String, required: true },
     achieve: { type: String, required: true },
     work_ethic: { type: String, required: true },
+    idea: { type: String, required: true },
   },
   {
     timestamps: true,
