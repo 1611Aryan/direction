@@ -46,19 +46,6 @@ const Form: React.FC<{
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    if (
-      !input.branch.trim() ||
-      !input.department ||
-      !input.department[0].trim() ||
-      !input.year.trim() ||
-      !input.phone.trim()
-    ) {
-      console.error({
-        message: "Input Field is Empty",
-      })
-      return
-    }
-
     setLoading(true)
     try {
       await axios[createUserEndpoint.method](

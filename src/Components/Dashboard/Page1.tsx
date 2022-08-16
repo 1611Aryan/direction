@@ -19,7 +19,7 @@ const Page1: React.FC<{
       if (e.target.name !== "department")
         return {
           ...input,
-          [e.target.name]: e.target.value.toString().trim(),
+          [e.target.name]: e.target.value.toString(),
         }
 
       const department = []
@@ -43,9 +43,9 @@ const Page1: React.FC<{
     })
 
   const InputsNotEmpty = (input: input): boolean => {
+    return true
     let i = true
     Object.values(input).forEach(val => {
-      console.log(val)
       if (val === "" || val === [] || (Array.isArray(val) && val[0] === ""))
         i = false
     })
