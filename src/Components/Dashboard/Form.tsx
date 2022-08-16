@@ -14,6 +14,7 @@ export type input = {
   failure: string
   achieve: string
   work_ethic: string
+  idea: string
 }
 
 const Form: React.FC<{
@@ -41,6 +42,7 @@ const Form: React.FC<{
     failure: "",
     achieve: "",
     work_ethic: "",
+    idea: "",
   })
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {

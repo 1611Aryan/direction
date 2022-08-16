@@ -26,11 +26,6 @@ const Main: React.FC<{
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (process.env.NODE_ENV === "development") {
-      setAccess(true)
-      return
-    }
-
     setLoading(true)
 
     try {

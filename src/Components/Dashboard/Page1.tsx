@@ -43,7 +43,6 @@ const Page1: React.FC<{
     })
 
   const InputsNotEmpty = (input: input): boolean => {
-    return true
     let i = true
     Object.values(input).forEach(val => {
       if (val === "" || val === [] || (Array.isArray(val) && val[0] === ""))
@@ -246,6 +245,18 @@ const Page1: React.FC<{
         <textarea
           value={input.work_ethic}
           name="work_ethic"
+          onChange={changeHandler}
+          required
+        />
+      </div>
+      <div className="inputContainer">
+        <label htmlFor="idea">
+          Suggest any Idea for an event you would like to conduct. Be as
+          creative as you can be!
+        </label>
+        <textarea
+          value={input.idea}
+          name="idea"
           onChange={changeHandler}
           required
         />
