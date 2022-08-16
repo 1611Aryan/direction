@@ -1,9 +1,9 @@
+import cookieParser from "cookie-parser"
+import cors from "cors"
 import Express from "express"
-import morgan from "morgan"
 import helmet from "helmet"
 import mongoose from "mongoose"
-import cors from "cors"
-import cookieParser from "cookie-parser"
+import morgan from "morgan"
 
 import UserRouter from "./Routes/routes"
 
@@ -21,7 +21,7 @@ app.use(
   cors({
     origin:
       process.env.NODE_ENV === "production"
-        ? "https://iiche-direction.netlify.app"
+        ? "https://oriontiet-recruitments.netlify.app"
         : "http://localhost:3000",
     credentials: true,
   })

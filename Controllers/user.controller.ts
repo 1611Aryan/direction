@@ -1,6 +1,5 @@
 import { Request, Response } from "express-serve-static-core"
-import User from "../Models/User.model"
-import transporter from "../Nodemailer.config"
+import User, { UserI } from "../Models/User.model"
 
 type controller = (req: Request, res: Response) => Promise<Response>
 
@@ -71,32 +70,10 @@ export const createUser: controller = async (req, res) => {
   if (!toBool(process.env.isActive))
     return res.status(403).send({ message: "The form has been closed" })
 
-  const name =
-    (req.body.name && (req.body.name.toString().trim() as string)) || null
-  const email =
-    (req.body.email && (req.body.email.toString().trim() as string)) || null
-
-  const year =
-    (req.body.year && (req.body.year.toString().trim() as string)) || null
-  const branch =
-    (req.body.branch && (req.body.branch.toString().trim() as string)) || null
-  const department = (req.body.department as string[]) || null
-
-  const phone =
-    (req.body.phone && (req.body.phone.toString().trim() as string)) || null
+  const { name, email, year, branch, department, phone, describe, skills, failure, achieve, work_ethic } = req.body as UserI
 
   try {
-    if (!year || !branch || !department || !email || !name || !phone) {
-      console.log({
-        year,
-        branch,
-        department,
-
-        name,
-        email,
-
-        phone,
-      })
+    if (!year || !branch || !department || !department[0] || !email || !name || !phone || !describe || !skills || !failure || !achieve || !work_ethic) {
 
       return res.status(400).send({ message: "Incorrect request" })
     }
@@ -109,45 +86,12 @@ export const createUser: controller = async (req, res) => {
     }
 
     await User.create({
-      name,
-      email,
-      year,
-      branch,
-      department,
-
-      phone,
+      name, email, year, branch, department, phone, describe, skills, failure, achieve, work_ethic
     })
 
-    const options = {
-      from: process.env.NODEMAILER_SENDER,
-      to: email,
-      subject: "IIChE TIET Direction 2.0",
-      html: `
-          Hello ${name},
-    <br />
-    <br />
-    We hope that you are doing great.
-    <br />
-    This mail is to confirm that we have successfully received your form for IIChE TIET's DIRECTION 2.0
-    <br /><br />
-    Looking Forward to seeing you on 4th December.
-    <br /><br />
-   
-    If you have any query you can contact 
-    <br />
-    Parth Sood (GenSec) : 7986810284
-    <br />
-    Anushka Khera(GenSec) : 7428265269
-    <br />
-    Or simply reply to this mail thread
-    <br /><br />
-    Regards
-    Team IIChE TIET
-          `,
-    }
-    transporter.sendMail(options)
 
-    return res.status(200).clearCookie("JWT_IIChE").send({ success: true })
+
+    return res.status(200).send({ success: true })
   } catch (err) {
     console.log({ create: err })
     return res.status(500).send(err)
